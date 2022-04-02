@@ -16,6 +16,10 @@ const config = {
   organizationName: 'TrueFiEng', // Usually your GitHub org/user name.
   projectName: 'useDApp', // Usually your repo name.
 
+  plugins: [
+    './plugins/webpack-plugin.js'
+  ],
+
   presets: [
     [
       'classic',
@@ -57,12 +61,6 @@ const config = {
             label: 'About'
           },
           {
-            type: 'doc',
-            docId: 'getting-started',
-            position: 'left',
-            label: 'Docs',
-          },
-          {
             href: 'https://github.com/TrueFiEng/useDApp/',
             label: 'GitHub',
             position: 'right',
@@ -79,10 +77,6 @@ const config = {
                 label: 'About',
                 to: 'https://usedapp.io/'
               },
-              {
-                label: 'Docs',
-                to: '/docs/',
-              },
             ],
           },
           {
@@ -91,6 +85,10 @@ const config = {
               {
                 label: 'GitHub',
                 href: 'https://github.com/TrueFiEng/useDApp/',
+              },
+              {
+                label: 'Discord',
+                href: 'https://discord.gg/cSSmtdq7jr',
               },
             ],
           },

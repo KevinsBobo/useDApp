@@ -9,11 +9,12 @@ import {
   Config,
 } from '@usedapp/core'
 import { formatEther } from '@ethersproject/units'
+import { getDefaultProvider } from 'ethers'
 
 const config: Config = {
   readOnlyChainId: Mainnet.chainId,
   readOnlyUrls: {
-    [Mainnet.chainId]: 'https://mainnet.infura.io/v3/62687d1a985d4508b2b7a24827551934',
+    [Mainnet.chainId]: getDefaultProvider(),
   },
 }
 
@@ -29,9 +30,7 @@ function App() {
   const etherBalance = useEtherBalance(account)
   return (
     <div>
-      <div>
-        <button onClick={() => activateBrowserWallet()}>Connect</button>
-      </div>
+      {!account && <button onClick={() => activateBrowserWallet()}>Connect</button>}
       {account && <p>Account: {account}</p>}
       {etherBalance && <p>Balance: {formatEther(etherBalance)}</p>}
     </div>

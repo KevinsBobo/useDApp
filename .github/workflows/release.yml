@@ -15,6 +15,9 @@ jobs:
         with:
           # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
+          # This allows the changesets/action step to override the default actions user,
+          # and allow CI jobs on commits coming from that step.
+          persist-credentials: false
 
       - name: Setup Node.js 16.x
         uses: actions/setup-node@master
@@ -27,6 +30,11 @@ jobs:
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Set git user
+        run: |
+          git config user.name truefi-bot
+          git config user.email truefi-bot@trusttoken.com
+
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1
@@ -36,6 +44,7 @@ jobs:
           version: pnpm run version
           commit: "🎉 Release new version"
           title: "🎉 Release new version"
+          setupGitUser: false
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

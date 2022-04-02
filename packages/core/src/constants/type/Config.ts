@@ -1,7 +1,10 @@
 import { Chain } from '../../constants'
+import { BaseProvider } from '@ethersproject/providers'
+
+export type BaseProviderFactory = () => BaseProvider
 
 export type NodeUrls = {
-  [chainId: number]: string
+  [chainId: number]: string | BaseProvider | BaseProviderFactory
 }
 
 export type MulticallAddresses = {
@@ -60,8 +63,18 @@ export type FullConfig = {
   autoConnect: boolean
 }
 
+/* eslint-disable @typescript-eslint/ban-types  */
+type RecursivePartial<Object, Keys extends {}> = {
+  [P in keyof Object]?: P extends keyof Keys ? RecursivePartial<Object[P], Keys[P]> : Object[P]
+}
+
 /**
  * useDapp configuration.
  * @public
  */
-export type Config = Partial<FullConfig>
+export type Config = RecursivePartial<
+  FullConfig,
+  {
+    notifications: {}
+  }
+>

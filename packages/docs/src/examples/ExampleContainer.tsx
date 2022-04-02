@@ -1,12 +1,14 @@
-import React, { useState } from "react"
-import CodeWrapper from "./CodeWrapper"
-import BrowserOnly from '@docusaurus/BrowserOnly';
+import React, { useState } from 'react'
+import CodeWrapper from './CodeWrapper'
+import BrowserOnly from '@docusaurus/BrowserOnly'
+import  ReactDOM from 'react-dom'
 
 export interface Example {
   source: {
     ts: string
   },
   name: string,
+  path: string,
   load: () => { default: React.FC }
 }
 
@@ -40,6 +42,9 @@ function ExampleRenderer({ example }: ExampleRendererProps) {
   )
 }
 
+// Needed because of require caching
+const exampleCache = new Map<string, React.FC>()
+
 /**
  * Loads the example and returns the component that will render the example app.
  * It's either the JSX passed to `ReactDOM.render` or otherwise the default export of the module.
@@ -51,17 +56,20 @@ function ExampleRenderer({ example }: ExampleRendererProps) {
  * @returns A renderable component
  */
 function loadExample(example: Example): React.FC {
-  const ReactDOM = require('react-dom');
+  if(exampleCache.has(example.path)) {
+    return exampleCache.get(example.path)
+  }
 
-  const originalRender = (ReactDOM as any).render;
+  const originalRender = (ReactDOM as any).render
   let renderJsx = undefined;
   (ReactDOM as any).render = (jsx: any) => {
-    renderJsx = jsx;
+    renderJsx = jsx
     // Not rendering anything, overriding default behaviour of App examples.
   }
   const exports = example.load()
   const component = renderJsx ? () => renderJsx : exports.default
-  ReactDOM.render = originalRender;
+  ReactDOM.render = originalRender
   
-  return component;
+  exampleCache.set(example.path, component)
+  return component
 }
