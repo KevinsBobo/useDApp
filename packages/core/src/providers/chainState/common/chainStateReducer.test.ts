@@ -1,5 +1,6 @@
 import { expect } from 'chai'
-import { chainStateReducer, Mainnet, State } from '../../..'
+import { Mainnet, State } from '../../..'
+import { chainStateReducer } from './chainStateReducer'
 
 describe('chainStateReducer', () => {
   const ADDRESS_A = '0x' + 'a'.repeat(40)
@@ -36,7 +37,7 @@ describe('chainStateReducer', () => {
     expect(result).to.deep.equal(state)
   })
 
-  it('overwrites with updates from newer blocks', () => {
+  it('merges with updates from newer blocks', () => {
     const state: State = {
       [Mainnet.chainId]: {
         blockNumber: 1234,
@@ -67,6 +68,12 @@ describe('chainStateReducer', () => {
       [Mainnet.chainId]: {
         blockNumber: 1235,
         state: {
+          [ADDRESS_A]: {
+            '0xdead': {
+              value: '0xbeef',
+              success: true,
+            },
+          },
           [ADDRESS_B]: {
             '0xabcd': {
               value: '0x5678',

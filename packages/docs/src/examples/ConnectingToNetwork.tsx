@@ -1,37 +1,76 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { formatEther } from '@ethersproject/units'
-import { Mainnet, DAppProvider, useEtherBalance, useEthers, Config } from '@usedapp/core'
+import { Mainnet, DAppProvider, useEtherBalance, useEthers, Config, Goerli } from '@usedapp/core'
 import { getDefaultProvider } from 'ethers'
+import { AccountIcon } from './components/AccountIcon'
 
 const config: Config = {
-    readOnlyChainId: Mainnet.chainId,
-    readOnlyUrls: {
-      [Mainnet.chainId]: getDefaultProvider('mainnet'),
-    },
+  readOnlyChainId: Mainnet.chainId,
+  readOnlyUrls: {
+    [Mainnet.chainId]: getDefaultProvider('mainnet'),
+    [Goerli.chainId]: getDefaultProvider('goerli'),
+  },
 }
-  
+
 ReactDOM.render(
-    <DAppProvider config={config}>
-      <App />
-    </DAppProvider>,
-    document.getElementById('root')
+  <DAppProvider config={config}>
+    <App />
+  </DAppProvider>,
+  document.getElementById('root')
 )
 
 const STAKING_CONTRACT = '0x00000000219ab540356cBB839Cbe05303d7705Fa'
 
 export function App() {
-  const { activateBrowserWallet, deactivate, account } = useEthers()
+  const { account, activateBrowserWallet, deactivate, chainId } = useEthers()
   const userBalance = useEtherBalance(account)
   const stakingBalance = useEtherBalance(STAKING_CONTRACT)
-  
+  if (!config.readOnlyUrls[chainId]) {
+    return <p>Please use either Mainnet or Goerli testnet.</p>
+  }
+
+  const ConnectButton = () => (
+    <div>
+      <button onClick={() => activateBrowserWallet()}>Connect</button>
+      <p>Connect to wallet to interact with the example.</p>
+    </div>
+  )
+
+  const MetamaskConnect = () => (
+    <div>
+      {account && (
+        <div>
+          <div className="inline">
+            <AccountIcon account={account} />
+            &nbsp;
+            <div className="account">{account}</div>
+          </div>
+          <br />
+        </div>
+      )}
+      {!account && <ConnectButton />}
+      {account && <button onClick={deactivate}>Disconnect</button>}
+      <br />
+    </div>
+  )
+
   return (
     <div>
-      {!account && <button onClick={activateBrowserWallet}> Connect </button>}
-      {account && <button onClick={deactivate}> Disconnect </button>}
-      {account && <p>Account: {account}</p>}
-      {userBalance && <p>Ether balance: {formatEther(userBalance)} ETH </p>}
-      {stakingBalance && <p>ETH2 staking balance: {formatEther(stakingBalance)} ETH </p>}
+      <MetamaskConnect />
+      {userBalance && (
+        <div className="balance">
+          <br />
+          Ether balance:
+          <p className="bold">{formatEther(userBalance)} ETH</p>
+        </div>
+      )}
+      {stakingBalance && (
+        <div className="balance">
+          ETH2 staking balance:
+          <p className="bold">{formatEther(stakingBalance)} ETH</p>
+        </div>
+      )}
     </div>
   )
 }

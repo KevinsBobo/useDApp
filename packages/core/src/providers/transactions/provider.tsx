@@ -1,11 +1,10 @@
 import { ReactNode, useCallback, useEffect, useReducer } from 'react'
-import { useEthers, useLocalStorage } from '../../hooks'
-import { useBlockNumber } from '../blockNumber/blockNumber'
+import { useEthers, useLocalStorage, useConfig } from '../../hooks'
+import { useIsMounted } from '../../hooks/useIsMounted'
 import { useNotificationsContext } from '../notifications/context'
 import { TransactionsContext } from './context'
-import { DEFAULT_STORED_TRANSACTIONS, StoredTransaction } from './model'
+import { DEFAULT_STORED_TRANSACTIONS, StoredTransaction, UpdatedTransaction } from './model'
 import { transactionReducer } from './reducer'
-import { useConfig } from '../config'
 
 interface Props {
   children: ReactNode
@@ -13,11 +12,11 @@ interface Props {
 
 export function TransactionProvider({ children }: Props) {
   const { chainId, library } = useEthers()
-  const blockNumber = useBlockNumber()
   const { localStorage } = useConfig()
   const [storage, setStorage] = useLocalStorage(localStorage.transactionPath)
   const [transactions, dispatch] = useReducer(transactionReducer, storage ?? DEFAULT_STORED_TRANSACTIONS)
   const { addNotification } = useNotificationsContext()
+  const isMounted = useIsMounted()
 
   useEffect(() => {
     setStorage(transactions)
@@ -25,10 +24,27 @@ export function TransactionProvider({ children }: Props) {
 
   const addTransaction = useCallback(
     (payload: StoredTransaction) => {
+      if (!isMounted()) {
+        return
+      }
       dispatch({
         type: 'ADD_TRANSACTION',
         payload,
       })
+      if (payload.receipt) {
+        const type = payload.receipt.status === 0 ? 'transactionFailed' : 'transactionSucceed'
+        addNotification({
+          notification: {
+            type,
+            submittedAt: Date.now(),
+            transaction: payload.transaction,
+            receipt: payload.receipt,
+            transactionName: payload.transactionName,
+          },
+          chainId: payload.transaction.chainId,
+        })
+        return
+      }
       addNotification({
         notification: {
           type: 'transactionStarted',
@@ -42,11 +58,34 @@ export function TransactionProvider({ children }: Props) {
     [dispatch]
   )
 
-  useEffect(() => {
-    const updateTransactions = async () => {
-      if (!chainId || !library || !blockNumber) {
+  const updateTransaction = useCallback(
+    (payload: UpdatedTransaction) => {
+      if (!isMounted()) {
         return
       }
+      dispatch({
+        type: 'UPDATE_TRANSACTION',
+        payload,
+      })
+      const type = payload.receipt.status === 0 ? 'transactionFailed' : 'transactionSucceed'
+      addNotification({
+        notification: {
+          type,
+          submittedAt: Date.now(),
+          transaction: payload.transaction,
+          receipt: payload.receipt,
+          transactionName: payload.transactionName,
+        },
+        chainId: payload.transaction.chainId,
+      })
+    },
+    [dispatch]
+  )
+  useEffect(() => {
+    const updateTransactions = async () => {
+      if (!chainId || !library) return
+
+      const blockNumber = await library.getBlockNumber()
 
       const checkTransaction = async (tx: StoredTransaction) => {
         if (tx.receipt || !shouldCheck(blockNumber, tx)) {
@@ -86,13 +125,17 @@ export function TransactionProvider({ children }: Props) {
         newTransactions.push(newTransaction)
       }
 
-      dispatch({ type: 'UPDATE_TRANSACTIONS', chainId, transactions: newTransactions })
+      if (isMounted()) {
+        dispatch({ type: 'UPDATE_TRANSACTIONS', chainId, transactions: newTransactions })
+      }
     }
 
-    updateTransactions()
-  }, [chainId, library, blockNumber])
+    void updateTransactions()
+  }, [chainId, library])
 
-  return <TransactionsContext.Provider value={{ transactions, addTransaction }} children={children} />
+  return (
+    <TransactionsContext.Provider value={{ transactions, addTransaction, updateTransaction }} children={children} />
+  )
 }
 
 function shouldCheck(blockNumber: number, tx: StoredTransaction): boolean {

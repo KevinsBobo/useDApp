@@ -1,11 +1,10 @@
 // NOTE: We explicitly export the symbols in the root index.ts file to have better control over package's public API.
 
+export type { Chain, Config, FullConfig, MulticallAddresses, NodeUrls, QueryParams, LogQueryParams } from './constants'
 export {
   ChainId,
   BNB,
   BUSD,
-  Chain,
-  Config,
   DEFAULT_SUPPORTED_CHAINS,
   Dai,
   ERC20,
@@ -13,21 +12,17 @@ export {
   ERC20Mock,
   ERC20MockInterface,
   Ether,
-  FullConfig,
   KovanDai,
   KovanEther,
   MultiCall,
   MultiCall2,
   MultiCall2ABI,
   MultiCallABI,
-  MulticallAddresses,
   NATIVE_CURRENCY,
-  NodeUrls,
   TestBNB,
   TestBUSD,
 } from './constants'
-export {
-  DAppProvider,
+export type {
   DAppProviderProps,
   AddNotificationPayload,
   RemoveNotificationPayload,
@@ -39,45 +34,26 @@ export {
   State,
   StoredTransaction,
   StoredTransactions,
-  getStoredTransactionState,
-  multicall,
-  multicall2,
-  useBlockNumber,
-  useConfig,
-  useNetwork,
-  useUpdateConfig,
-  // To be removed from public API:
-  ChainCall,
-  SingleChainState,
-  Network,
-  NetworkProvider,
-  BlockNumberProvider,
-  Action,
-  BlockNumberChanged,
-  BlockNumberContext,
-  ChainStateAction,
-  ConfigContext,
-  ConfigProvider,
-  MultiChainState,
-  MultiChainStateProvider,
-  MultiChainStatesContext,
-  blockNumberReducer,
-  callsReducer,
-  chainStateReducer,
-  DEFAULT_NOTIFICATIONS,
-  DEFAULT_STORED_TRANSACTIONS,
-  useMultiChainStates,
-  useTransactionsContext,
-  useNotificationsContext,
 } from './providers'
+export { DAppProvider, getStoredTransactionState, multicall, multicall2, useConnector } from './providers'
+export type { Connector, ConnectorController, ConnectorUpdateData } from './providers'
+export type { TypedFilter, Call, ContractCall, TokenList } from './hooks'
 export {
-  Call,
-  ContractCall,
-  Web3Ethers,
   useBlockMeta,
+  useLogs,
+  useRawLogs,
+  useBlockNumber,
+  useBlockNumbers,
   useCall,
   useCalls,
+  useConfig,
+  useUpdateConfig,
+  useContractCall,
+  useContractCalls,
+  useChainCall,
+  useChainCalls,
   useChainMeta,
+  useChainState,
   useContractFunction,
   useEtherBalance,
   useEthers,
@@ -90,50 +66,38 @@ export {
   useTokenAllowance,
   useTokenBalance,
   useTokenList,
-  TokenList,
   useTransactions,
-  // To be removed from public API:
-  useContractCall,
-  useContractCalls,
-  useChainCall,
-  useChainCalls,
-  useChainState,
-  connectContractToSigner,
-  useDebounce,
-  useLocalStorage,
-  useDebouncePair,
-  useInterval,
+  useRawCall,
+  useRawCalls,
+  useResolveName,
+  useSigner,
 } from './hooks'
-export {
-  Currency,
-  CurrencyValue,
-  FiatCurrency,
-  NativeCurrency,
-  Token,
+export type {
+  CurrencyFormatOptions,
   TransactionOptions,
   TransactionState,
   TransactionStatus,
-  transactionErrored,
+  Falsy,
+  Params,
 } from './model'
+export { Currency, CurrencyValue, FiatCurrency, NativeCurrency, Token, transactionErrored } from './model'
+export type { LogsResult, CallResult } from './helpers'
 export * from './model/chain'
 export {
-  CallResult,
+  isLocalChain,
+  isTestChain,
   addressEqual,
   compareAddress,
   shortenAddress,
   shortenIfAddress,
   shortenIfTransactionHash,
   shortenTransactionHash,
-  // To be removed from public API:
-  warnOnInvalidCall,
-  getChainById,
-  encodeCallData,
-  decodeCallResult,
-  getChainMeta,
-  isLocalChain,
-  isTestChain,
   getChainName,
-  getUniqueCalls,
   getExplorerAddressLink,
   getExplorerTransactionLink,
+  Event as ConnectorEvent,
 } from './helpers'
+export { MetamaskConnector } from './providers/network/connectors/implementations/metamask'
+export { InjectedConnector } from './providers/network/connectors/implementations/injected'
+export { CoinbaseWalletConnector } from './providers/network/connectors/implementations/coinbase'
+export type { Web3Ethers } from './providers/network/connectors/context'

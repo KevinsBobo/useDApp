@@ -1,5 +1,5 @@
 import { utils } from 'ethers'
-import { BigNumber } from '@ethersproject/bignumber'
+import { BigNumber } from 'ethers'
 import { Falsy } from '../model/types'
 import { shortenString } from './common'
 
@@ -15,6 +15,9 @@ export function shortenAddress(address: string): string {
   }
 }
 
+/**
+ * @public
+ */
 export function shortenIfAddress(address: string | Falsy): string {
   if (typeof address === 'string' && address.length > 0) {
     return shortenAddress(address)

@@ -1,5 +1,436 @@
 # @usedapp/core
 
+## 1.2.13
+
+### Patch Changes
+
+- 0b953e8: Adding the network kroma mainnet:
+
+  https://blockscout.kroma.network/
+
+  https://kroma.network/
+
+  it does not have verified contracts yet in the explorer, adding multicall address later.
+
+## 1.2.12
+
+### Patch Changes
+
+- 4e74583: ⛓ Add Three chains, to chainId
+
+  - Mantle Mainnet
+  - Scroll Sepolia ( Alpha got deprecated - goerli )
+  - Kroma
+
+## 1.2.11
+
+### Patch Changes
+
+- c112082: ⛓ Add Base Mainnet to chain ID
+
+## 1.2.10
+
+### Patch Changes
+
+- 8dad4e5: ⛓ Add Linea Testnet to chain ID
+  ⛓ Add Mantle Testnet to chain ID
+  ⛓ Add Arbitrum Nova to chain ID
+
+## 1.2.9
+
+### Patch Changes
+
+- 0f7c559: ⛓ Add Scroll Alpha Testnet to chain ID
+- 56a7c5f: ⛓ Add Base Görli test chain
+
+## 1.2.8
+
+### Patch Changes
+
+- 8716e44: Visibility state check document for existence
+- 2f08a7a: Prevent metamask ghost connect
+- 958cb84: Add ZkSync chain
+- b26772f: Add a readOnlyNetwork dependency to connector context
+
+## 1.2.7
+
+### Patch Changes
+
+- 45dd6bd: Reenable pending signature status
+
+## 1.2.6
+
+### Patch Changes
+
+- 87b0a02: Clear error message on new transaction
+
+## 1.2.5
+
+### Patch Changes
+
+- d5056ed: Gnosis Safe fix state not updating
+
+## 1.2.4
+
+### Patch Changes
+
+- 4acf8b6: Allow only ethers v5
+
+## 1.2.3
+
+### Patch Changes
+
+- 6f44b8a: Add celo blockchain main and testnet networks
+- 8b6242d: Add pending signature notification
+- 4536958: Add useSigner hook
+- 737d43c: Add queryParams to useToken hook
+- d2cba26: Fix enablePendingSignatureNotification option name
+- 0f8928d: Add contract events to generate-hooks output
+- a99f1a5: Set default gasLimit to null instead of 0
+- 248679b: Add celo chain ids
+- 2adbea1: Simplify useChainId hook
+- 05f1a7f: Fix writing to local storage crashing application
+- d641e77: Return connector errors in useEthers
+- cedd2c7: 🧪 Add Canto and CantoTest network
+- d4d03c7: Add Rave Names resolution to the useAddressLookup hook, but only if opted-into by the user.
+- 23fd07b: Add klaytn network
+- 1ad724c: Keep transactionName in notifications after the transaction is mined
+- 1138877: Fix race condition when initializing account
+- 936e7bf: Move useEthers logic to ConnectorContext
+- ab9b722: Add Rootstock Testnet and Mainnet networks
+- 67fffc2: Pass data to safeTransaction in useSendTransaction to correctly decode gnosis safe transactions
+- 5c476d6: Pass safeTxGas in useContractFunction
+- 0b53b92: Add safeTxGas field when using useSendTransaction with Gnosis
+- 6dbfc63: Transaction replacement error fix
+- d9d6536: Refactor usage of gnosis safe contract
+- 6a06d7e: 🧤 Add non-empty data string in Send Transaction for restoring Gnosis Safe integration
+- 9a005e0: Add Flare network
+- b6b9141: This patch serves to update the @metamask/detect-provider dependency to the latest version, resolving a bug related to the older version of that package. The bug was not critical and did not cause any build failures, but did result in some warnings in the console related to sourcemaps.
+- b069906: Update optimism goerli etherscan link
+- 0ae7b13: ➕ Add transaction name to state
+- b51c261: add flare testnet
+
+## 1.2.2
+
+### Patch Changes
+
+- 840e14e: Change Goerli Optimism block explorer to etherscan
+
+## 1.2.1
+
+### Patch Changes
+
+- a8e4a94: Fix issue with not being able to open WalletConnect modal again after closing it
+
+## 1.2.0
+
+### Minor Changes
+
+- 389756b: Adding connectors for the most popular wallets
+- 6a8403d: 🎈 Integrate usePromiseTransaction with Gnosis Safe
+
+### Patch Changes
+
+- 1d29f26: fix: add `rpcUrl` to xdai
+- 708933e: 🪟 Return boolean instead of object in window provider
+- 66fdce7: Add name field to connector interface
+- f349458: 📕 Sync usePromiseTransaction status and useNotification timing
+- 8278dad: 🫘 Return error from useCall with invalid arguments
+- 8235db2: 🐛 General update of chain models
+- ea63260: Remove unnecessary wallets peer deps
+- e89b3d6: 📀 Add own local storage implementation
+- 4f24a4c: Add Polygon/Mumbai `rpcUrl`
+- 0b16c93: useEthers sync account and library
+- 1709a8f: Fast initialize useEthers
+- 2db3062: 🧀 Remove duplicate calls for same data
+- 76ed855: Fix connectors cjs issue
+- 539be0d: 🍎 Add Optimism mainnet and testnets native currencies
+- 14c271f: ⛽ Avoid calling estimateGas in useContractFunction when gasLimit is passed explicitly
+- 3389c51: 😼 Add FallBackProvider type for library in useEthers
+- 50d1ac2: Safely handle invalid runtime parameters in `activateBrowserWallet`
+- 5e88952: 🚎 Add more detailed errors and docs around network switching
+- ddbfb1a: fix: change BNB decimals on BSC from 8 to 18
+- c3ffe57: 🤖 Make useCall error descriptive in different cases
+
+## 1.1.5
+
+### Patch Changes
+
+- ed915f1: ⛓ Add Optimism Göerli test chain
+- f420823: Resurface error when 'switchNetwork' fails
+- af0c4c4: 👮‍♀️ Disable `chainId` in `useEthers` only on unsupported or not configured chains
+
+## 1.1.4
+
+### Patch Changes
+
+- d2a0e57: 🪒 Do not assign polling intervals on websocket providers
+
+## 1.1.3
+
+### Patch Changes
+
+- f2c3766: ♨️ Properly update error when switching to not configured network
+- 3becd1d: Remove the need for specifying ABIs dir for generating hooks
+
+## 1.1.2
+
+### Patch Changes
+
+- bbb0cc9: ⛽️ Introduce `gasLimitBufferPercentage` alias
+
+## 1.1.1
+
+### Patch Changes
+
+- 61963a5: Refresh only static calls with changed par
+
+## 1.1.0
+
+### Minor Changes
+
+- a2f26c2: The 1.1.0 release of `@usedapp/core` was focused on improving the quality and stability of the framework.
+
+  The efforts were focused a lot on existing issues in the repository, regarding bugs and most-wanted feature requests.
+
+  ## Improvements
+
+  - More known chains have been added, such as zkSync or Boba.
+  - UseDapp automatically deploys Multicall2 on local chain (previously only Multicall1).
+  - Sign in With Ethereum plugin has been added.
+  - Prompt the user to add a chain to MetaMask if it's not there.
+  - New hooks: `useRawLogs`, `useLogs`, and `useResolveName` (complement to useLookupAddress).
+  - Add possibility to add a buffer to estimated gas costs when sending transactions.
+  - Include errorCode (previously only error message) when a sent transaction fails.
+  - Optimization - Introduced a speed up of multicall encoding.
+  - Transaction hooks like `useSendTransaction` return more information to the developer, such as txHash or transaction receipt.
+
+  ### Improvements related to limiting RPC calls
+
+  - Static calls.
+  - Limit refreshing when the window is not active.
+  - Ability to refresh every N blocks (or never).
+  - Do not query continuously for `eth_chainId` or `eth_blockNumber` if not necessary.
+
+  ## Bug fixes
+
+  - `useContractFunction` accepts Falsy value as a contract.
+    - It is more uniform with how other hooks work.
+  - Support projects with `isolatedModules` enabled in their TSConfig.
+  - Properly set react and ethers as peer dependencies.
+  - Include a workaround for [this MetaMask issue](https://github.com/MetaMask/metamask-extension/issues/13375).
+  - Allow to pass different provider to `renderWeb3Hook`.
+  - Resurface error if `activateBrowserWallet` fails.
+  - Correctly resurface error when a call in Multicall2 fails.
+
+  ## Documentation
+
+  - Portion of the documentation (hooks) is now auto-generated based on JSDoc and actual code.
+    - Keeping documentation close to code makes it easier to keep it up-to-date.
+  - Documentation now contains live examples - snippets of code that can be interacted with.
+  - Portion of the live examples is automatically tested with Playwright.
+
+  ## Internal testing and miscellaneous
+
+  - More extensive tests for multi-chain scenarios and different refreshing strategies.
+  - Every change is immediately deployed to `dev` on NPM
+    - The developers can use new features earlier.
+  - Example app is automatically tested with Playwright.
+  - Introduce new issue templates on github, to improve collaboration with external developers and users
+  - Created an example of useDapp in a Next.js project.
+
+### Patch Changes
+
+- 2789dd9: 😶‍🌫️ Add gas limiter to use contract function
+- 69ac77f: Added error hash returned to transaction status
+- 96a3d85: Refresh static calls on props change
+
+## 1.0.15
+
+### Patch Changes
+
+- 31c4833: 👨🏻‍💼 Add private key sending transactions
+- 31e0475: Return error in useCall when multicall fails
+
+## 1.0.14
+
+### Patch Changes
+
+- d07e0df: Fix refreshing cycle in ReadonlyNetworksProvider
+
+## 1.0.13
+
+### Patch Changes
+
+- d596405: ➕ Add stricter contract type check on the useLogs hook
+- 57e7582: 🔝 Update Nanoid version
+
+## 1.0.12
+
+### Patch Changes
+
+- 5776ed9: Add option to config to specify different polling intervals for different chains
+
+## 1.0.11
+
+### Patch Changes
+
+- 453b489: Don't poll readonly chains when unused
+
+## 1.0.10
+
+### Patch Changes
+
+- d835054: ⛓ Add arbitrum reddit test chain
+- 2909416: Fix refresh field in QueryOptions
+- 55a28a2: 🐺 More extensive check for provider object in `renderWeb3Hook`
+
+## 1.0.9
+
+### Patch Changes
+
+- 2888a3e: 🥗 Fix multiple deploying multicall during localhost connection
+- c4b8ae0: Add error code to transaction status
+- fcb6f41: 🦊 Add metamask filtering logic after activate browser wallet
+- 5877e2d: Fix race condition between chain id and provider
+
+## 1.0.8
+
+### Patch Changes
+
+- 24e9668: ⚡️ Add block refresher
+- edfd60b: 😶‍🌫️ Add receipt for executing contract functions and sending transactions
+- a3b1340: 🕸 Change swithNetwork to promise
+- 3d815ab: Ethers as peer deps
+- 4afd9b5: 🎗 Remove chainId requests
+
+## 1.0.7
+
+### Patch Changes
+
+- 2a65bfb: Use more specific imports
+
+## 1.0.6
+
+### Patch Changes
+
+- 6348832: ❗️ Fix exception during estimating gas price
+- 1ce58ad: Add no metamask deactivate option
+
+## 1.0.5
+
+### Patch Changes
+
+- bcff959: Fix ethers version
+- a0ab27f: Remove testing submodule
+
+## 1.0.4
+
+### Patch Changes
+
+- fe52f50: Add fast encoding options
+
+## 1.0.3
+
+### Patch Changes
+
+- 4e8025b: ✖️ Add percentage margin for useTransaction
+- ad8b91a: 🧻 Add useLogs hook
+- 17b8021: 🐛 Fix EventRecord type issue
+- d9e2ff3: Add error throwing to browser wallet activation
+- 3904895: ⚗️ Support `isolatedModules`
+- bd27e6b: Improved handling of Falsy parameters in hooks
+- 5229eea: Update ENS hooks
+- 8701d7d: 🪵 Add useRawLogs hook
+
+## 1.0.2
+
+### Patch Changes
+
+- 37c3b9d: 🪱 Attempt adding network if it isn't added to wallet
+- 083e9b1: Export useBlockNumbers hook as part of internal API
+
+## 1.0.2
+
+### Patch Changes
+
+- 37c3b9d: 🪱 Attempt adding network if it isn't added to wallet
+
+## 1.0.1
+
+### Patch Changes
+
+- 5a16232: Add astar network
+- e978fd9: 🥌 Add static calls
+- 3a108ad: 💤 Add zkSync to known chains
+- 5067120: 🐯 Solve getting lowercase account number from metamask after changing account
+- a40a680: Add Boba network
+
+## 1.0.0
+
+### Major Changes
+
+- 0d2368a: 1.0.0 release
+
+### Minor Changes
+
+- c46b2a1: 🕸️ Add `switchNetwork` to `useEthers`
+
+### Patch Changes
+
+- 669c1fa: 😵‍💫 Export currencyFormattingOptions from model
+- 28287db: 🔝 Update ethers to 5.6.2
+
+## 0.12.9
+
+### Patch Changes
+
+- 2e4b152: Fix race condition in NetworkProvider & fix devtools integration
+- 3d4cf2c: Fix metamask auto-connect behaviour
+- 28afc72: Properly handle unexpected undefined address in useContractCall.
+
+## 0.12.8
+
+### Patch Changes
+
+- e2d9950: Handle different cases of addresses
+- 2d7b1ec: Memoize calldata encoding
+- 0fd73d1: Export readonly networks provider from internal exports
+- 7d4d28b: Optimize getUniqueCalls usage
+
+## 0.12.7
+
+### Patch Changes
+
+- 51377cf: Remove `getAddress` calls due to performance issues
+
+## 0.12.6
+
+### Patch Changes
+
+- 77bb213: Correctly memoize hook results in useContractCalls
+
+## 0.12.5
+
+### Patch Changes
+
+- 42b1652: Make exports from testing and internal point to compiled code
+
+## 0.12.4
+
+### Patch Changes
+
+- fcd1642: Correctly read `chainId` in read-only mode without browser wallet
+- 93967af: Move parts that should be private in @usedapp/core to internal submodule
+- fe1e418: Add `isLoading` to `useEthers` and refactor chainId resolution
+- def0d9c: Properly merge default and supplied configs
+
+## 0.12.3
+
+### Patch Changes
+
+- 30bffcc: Fix queries not working in readonly mode
+
 ## 0.12.2
 
 ### Patch Changes
@@ -40,7 +471,7 @@
 
 ### Patch Changes
 
-- a07b14f: 📧 Add useChainMeta hook to get chain metadata from ChainID
+- a07b14f: 📧 Add useChainMeta hook to get chain metadata from ChainId
 - 9f8ce66: Add Palm Testnet support
 
 ## 0.10.0

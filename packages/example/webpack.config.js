@@ -3,12 +3,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const { ESBuildMinifyPlugin } = require('esbuild-loader')
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
+const { DefinePlugin } = require('webpack')
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 module.exports = {
-  entry: './src',
-  devtool: isDevelopment ? 'eval' : 'source-map',
+  entry: './src/entrypoint.tsx',
+  devtool: isDevelopment ? 'eval-source-map' : 'source-map',
   plugins: [
     isDevelopment && new ReactRefreshWebpackPlugin(),
     new HtmlWebpackPlugin({
@@ -23,6 +24,10 @@ module.exports = {
         },
       ],
     }),
+    new DefinePlugin({
+      'process.env.MAINNET_URL': process.env.MAINNET_URL ? JSON.stringify(process.env.MAINNET_URL) : undefined,
+      'process.env.LOCALHOST_URL': JSON.stringify(process.env.LOCALHOST_URL)
+    })
   ].filter(Boolean),
   module: {
     rules: [
@@ -32,6 +37,13 @@ module.exports = {
         exclude: /node_modules/,
         options: {
           loader: 'tsx',
+          target: 'es2018',
+        },
+      },
+      {
+        test: /node_modules[\\/]@(walletconnect|web3modal)/,
+        loader: 'esbuild-loader',
+        options: {
           target: 'es2018',
         },
       },
@@ -57,7 +69,7 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
-    host: '0.0.0.0',
+    host: 'localhost',
     stats: 'errors-only',
     overlay: true,
     hot: true,

@@ -1,5 +1,9 @@
 # useDapp
 
+[![CI](https://github.com/TrueFiEng/useDApp/actions/workflows/CI.yml/badge.svg)](https://github.com/TrueFiEng/useDApp/actions/workflows/CI.yml)
+[![Npm package version](https://badgen.net/npm/v/@usedapp/core)](https://npmjs.com/package/@usedapp/core)
+[![Discord](https://badgen.net/badge/icon/discord?icon=discord&label)](https://discord.gg/ppFxC3E44X)
+
 ### Ethereum 🤝 React 
 Framework for rapid Dapp development.  
 Simple. Robust. Extendable. Testable.
@@ -63,7 +67,7 @@ For detailed feature walkthrough checkout [documentation](https://usedapp-docs.n
 
 ## Contributing
 
-Contributions are always welcome, no matter how large or small. Before contributing, please read the [code of conduct](https://github.com/EthWorks/useDapp/blob/master/CODE_OF_CONDUCT.md) and [contribution policy](https://github.com/EthWorks/useDapp/blob/master/CONTRIBUTION.md).
+Contributions are always welcome, no matter how large or small. Before contributing, please read the [code of conduct](https://github.com/TrueFiEng/useDApp/blob/master/CODE_OF_CONDUCT.md) and [contribution policy](https://github.com/TrueFiEng/useDApp/blob/master/CONTRIBUTION.md).
 
 ### Before you issue pull request:
 
